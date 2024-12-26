@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.martishyn</groupId>
-	<artifactId>mock-resource-server</artifactId>
+	<artifactId>mock-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mock-resource-server</name>
 	<description>mock-resource-server</description>
@@ -33,6 +33,15 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 
 		<dependency>
