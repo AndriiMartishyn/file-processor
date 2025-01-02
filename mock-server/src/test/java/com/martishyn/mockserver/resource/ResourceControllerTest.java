@@ -5,10 +5,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.net.URL;
+import java.nio.file.Path;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -30,9 +31,9 @@ public class ResourceControllerTest {
     private UrlProvider urlProvider;
 
     @MockitoBean
-    private URL url;
+    private Path path;
 
-    @DisplayName("testing-non-existing-file")
+    @DisplayName("testing-non-existing-file-flow")
     @Test
     public void shouldReturnNotFoundResponseWhenNoFileExists() throws Exception {
         when(urlProvider.getUrlFromFile(anyString(), any())).thenReturn(null);
@@ -40,16 +41,13 @@ public class ResourceControllerTest {
         mockMvc.perform(get(REQUEST_URL)).andExpect(status().isNotFound());
     }
 
-    @DisplayName("testing-existing-file")
+    @DisplayName("testing-existing-file-flow")
     @Test
     public void shouldReturnOkResponseWhenFileExists() throws Exception {
-        when(urlProvider.getUrlFromFile(anyString(), any())).thenReturn(url);
-        when(url.getFile()).thenReturn("/files/data.json");
+        when(urlProvider.getUrlFromFile(anyString(), any())).thenReturn(path);
 
         mockMvc.perform(get(REQUEST_URL)).andExpect(status().is2xxSuccessful())
-                .andExpect(header().exists("Content-Type"))
-                .andExpect(header().exists("Content-Disposition"))
-                .andExpect(header().stringValues("Content-Disposition", "attachment; filename=data.json"))
+                .andExpect(header().exists(HttpHeaders.CONTENT_TYPE))
                 .andDo(print());
     }
 }

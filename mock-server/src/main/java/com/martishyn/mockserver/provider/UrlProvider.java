@@ -1,8 +1,9 @@
 package com.martishyn.mockserver.provider;
 
 import java.net.URL;
+import java.nio.file.Path;
 
 public interface UrlProvider {
 
-    URL getUrlFromFile(String fileName, Class<?> clazz);
+    Path getUrlFromFile(String fileName, Class<?> clazz);
 }
